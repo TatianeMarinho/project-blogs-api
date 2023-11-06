@@ -4,4 +4,6 @@ const { categoryMiddleware, auth } = require('../middlewares');
 
 router.post('/', auth, categoryMiddleware.nameValidate, categoryController.newCategory);
 
+router.get('/', auth, categoryController.getCategories);
+
 module.exports = router;
