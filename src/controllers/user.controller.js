@@ -2,13 +2,20 @@ const { userService } = require('../services');
 const mapHTTP = require('../utils/mapHTTP');
 
 const newUser = async (req, res) => {
-  const { displayName, email, password, image } = req.body;
+  const { body } = req;
 
-  const { status, data } = await userService.createrUser(displayName, email, password, image);
+  const { status, data } = await userService.createrUser(body);
 
-  return res.status(mapHTTP[status]).json(data);
+  return res.status(mapHTTP(status)).json(data);
+};
+
+const getUsers = async (_req, res) => {
+  const { status, data } = await userService.getAllUsers();
+
+  return res.status(mapHTTP(status)).json(data);
 };
 
 module.exports = {
   newUser,
+  getUsers,
 };
