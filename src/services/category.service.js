@@ -12,7 +12,14 @@ const getAllCategories = async () => {
   return { status: 'SUCCESSFUL', data: listCategories };
 };
 
+const findOneCategory = async (id) => {
+  const category = await Category.findOne({ where: id });
+
+  return category;
+};
+
 module.exports = {
   createrCategory,
   getAllCategories,
+  findOneCategory,
 };

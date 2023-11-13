@@ -5,6 +5,7 @@ const httpCodeMap = {
   CONFLICT: 409,
   INVALID_VALUE: 422,
   BAD_REQUEST: 400,
+  ERROR_SERVER: 500,
 };
 
 const mapStatusHTTP = (status) => httpCodeMap[status] || 500;
