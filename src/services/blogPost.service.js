@@ -22,6 +22,7 @@ const getAllPost = async () => {
     // especifica os models relacionados que devem ser inclusos na pesquisa
     include: [
       { model: User,
+        // apelido dado ao relacionamento das tabelas
         as: 'user',
         attributes: { exclude: ['password'] } },
       { model: Category,
@@ -34,7 +35,30 @@ const getAllPost = async () => {
   return ({ status: 'SUCCESSFUL', data: listBlogs });
 };
 
+const findOnePost = async (id) => {
+  const post = await BlogPost.findOne({ 
+    where: { id },
+    include: [
+      { model: User,
+        // apelido dado ao relacionamento das tabelas
+        as: 'user',
+        attributes: { exclude: ['password'] } },
+      { model: Category,
+        as: 'categories',
+        // nao inclui nenhum atributo da tabela de associaçao entre blogPost e category
+        through: { attributes: [] } },
+    ],
+  });
+  
+  if (!post) {
+    return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
+  }
+
+  return { status: 'SUCCESSFUL', data: post };
+};
+
 module.exports = {
   createPost,
   getAllPost,
+  findOnePost,
 };

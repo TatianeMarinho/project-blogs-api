@@ -3,6 +3,12 @@ const { blogPostController } = require('../controllers');
 const { blogPostMiddleware, auth } = require('../middlewares');
 
 router.get(
+  '/:id',
+  auth,
+  blogPostController.findBlogPost,
+);
+
+router.get(
   '/',
   auth,
   blogPostController.getBlogPost,

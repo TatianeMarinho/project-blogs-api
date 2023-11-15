@@ -17,7 +17,16 @@ const getBlogPost = async (_req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const findBlogPost = async (req, res) => {
+  const { id } = req.params;
+
+  const { status, data } = await blogPostService.findOnePost(id);
+
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   newBlogPost,
   getBlogPost,
+  findBlogPost,
 };
